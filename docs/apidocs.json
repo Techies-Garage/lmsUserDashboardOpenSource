@@ -1,0 +1,468 @@
+{
+  "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "2bc242e06641b"
+  },
+  "info": {
+    "title": "Dashboard API",
+    "description": "Dashboard App API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "me@solomonmarvel.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "description": "Production server (uses live data)"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Sandbox server (uses test data)"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "summary": "Get all courses",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "get-course",
+        "description": "Get All Courses",
+        "tags": [
+          "courses"
+        ]
+      },
+      "post": {
+        "summary": "Create a new course",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "create-course",
+        "description": "Create a new course",
+        "tags": [
+          "courses"
+        ]
+      },
+      "parameters": []
+    },
+    "/courses/{courseId}": {
+      "get": {
+        "summary": "Get a course by ID",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "get-single-course",
+        "description": "Get Single Course using course id",
+        "tags": [
+          "courses"
+        ]
+      },
+      "put": {
+        "summary": "Update a course by ID",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "update-course",
+        "description": "Update Course Detials (with course id as param)",
+        "tags": [
+          "courses"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a course by ID",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/success"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "delete-course",
+        "description": "Delete Course (with course id param)",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/courses/{courseId}/lessons": {
+      "post": {
+        "summary": "Add a lesson to a course",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "create-lesson",
+        "description": "Create Lesson",
+        "tags": [
+          "lessons"
+        ]
+      },
+      "delete": {
+        "summary": "",
+        "operationId": "delete-courses-courseId-lessons",
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/success"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "description": "Delete Lesson",
+        "tags": [
+          "lessons"
+        ]
+      },
+      "put": {
+        "summary": "",
+        "operationId": "put-courses-courseId-lessons",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "description": "Update Lesson",
+        "tags": [
+          "lessons"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "courseId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/permissions": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "401": {
+            "$ref": "#/components/responses/error"
+          },
+          "500": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "operationId": "get-permissions",
+        "description": "Get All User Permissions (using authorisation token)",
+        "parameters": [],
+        "tags": [
+          "permissions"
+        ]
+      },
+      "put": {
+        "summary": "",
+        "operationId": "put-permissions",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          }
+        },
+        "description": "Update user permissions (add specific user crud permissions tagged with the application modules)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionInput"
+              }
+            }
+          }
+        },
+        "tags": [
+          "permissions"
+        ]
+      }
+    },
+    "/preference": {
+      "get": {
+        "summary": "Get user preference",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          }
+        },
+        "operationId": "get-preference",
+        "description": "Get User Preference",
+        "tags": [
+          "preference"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CourseInput": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "ObjectId"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "discount": {
+            "type": "number"
+          },
+          "thumbnail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId",
+          "email",
+          "name",
+          "slug"
+        ],
+        "description": "Course Inptu Object"
+      },
+      "LessonInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "videoUrl": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "description": "Lesson Input Object"
+      },
+      "PermissionInput": {
+        "type": "object",
+        "x-examples": {},
+        "properties": {
+          "permissions": {
+            "type": "object"
+          }
+        },
+        "description": "Permission Input Object",
+        "title": ""
+      }
+    },
+    "responses": {
+      "success": {
+        "description": "Success Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "success": true,
+                  "message": "Hello World!",
+                  "data": {}
+                }
+              }
+            },
+            "examples": {}
+          }
+        }
+      },
+      "error": {
+        "description": "Error Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "success": false,
+                  "message": "Hello World!"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "courses"
+    },
+    {
+      "name": "lessons"
+    },
+    {
+      "name": "permissions"
+    },
+    {
+      "name": "preference"
+    }
+  ]
+}
